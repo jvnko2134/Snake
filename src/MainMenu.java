@@ -8,11 +8,18 @@ import java.io.File;
 public class MainMenu extends Scene{
 
     public KL keyListener;
+    public ML mouseListener;
     public BufferedImage title, play, playPressed, exit, exitPressed;
 
-    public MainMenu(KL keyListener) {
+    public Rect playRect, exitRect, titleRect;
+
+    public BufferedImage playCurrentImage, exitCurrentImage;
+
+    public MainMenu(KL keyListener, ML mouseListener) {
 
         this.keyListener = keyListener;
+
+        this.mouseListener = mouseListener;
 
         try {
 
@@ -26,14 +33,39 @@ public class MainMenu extends Scene{
 
         } catch(Exception e){e.printStackTrace();}
 
+        playCurrentImage = play;
+        exitCurrentImage = exit;
+
+        titleRect = new Rect(400,150,480,120);
+        playRect = new Rect(580,400,130,60);
+        exitRect = new Rect(580,550,120,47);
+
     }
 
     @Override
     public void update(double dt) {
 
-        if(keyListener.isKeyPressed(KeyEvent.VK_UP))    {
+        if(mouseListener.getX() >= playRect.x && mouseListener.getX() <= playRect.x + playRect.width &&
+                mouseListener.getY() >= playRect.y && mouseListener.getY() <= playRect.y + playRect.height)    {
 
-            System.out.println("yea");
+                    playCurrentImage = playPressed;                                                             /*Controls image swap when moving mouse over a valid option in main menu*/
+                    if(mouseListener.isPressed)    {Window.changeState(1);}
+
+        } else  {
+
+            playCurrentImage = play;                                                                            //play button
+
+        }
+
+        if(mouseListener.getX() >= exitRect.x && mouseListener.getX() <= exitRect.x + exitRect.width &&
+                mouseListener.getY() >= exitRect.y && mouseListener.getY() <= exitRect.y + exitRect.height)    {
+
+            exitCurrentImage = exitPressed;                                                                     //exit button
+            if(mouseListener.isPressed)    {System.exit(1);}
+
+        } else  {
+
+            exitCurrentImage = exit;
 
         }
 
@@ -46,9 +78,9 @@ public class MainMenu extends Scene{
 
         g.fillRect(0,0,DEFINITIONS.SCREEN_WIDTH,DEFINITIONS.SCREEN_HEIGHT);
 
-        g.drawImage(title, 400,150,480,120,null);
-        g.drawImage(play, 580, 400, 130,60,null);
-        g.drawImage(exit,580,550, 120, 47,null);
+        g.drawImage(title, (int)titleRect.x,(int)titleRect.y,(int)titleRect.width,(int)titleRect.height,null);
+        g.drawImage(playCurrentImage, (int)playRect.x, (int)playRect.y, (int)playRect.width,(int)playRect.height,null);
+        g.drawImage(exitCurrentImage,(int)exitRect.x,(int)exitRect.y, (int)exitRect.width, (int)exitRect.height,null);
 
     }
 }
