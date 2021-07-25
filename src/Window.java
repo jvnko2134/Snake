@@ -5,6 +5,9 @@ public class Window extends JFrame implements Runnable {
 
     public boolean isRunning;
 
+    public static int currentState;
+    public static Scene currentScene;
+
     public Window(int width, int height, String title) {
 
         setSize(width,height);
@@ -14,6 +17,28 @@ public class Window extends JFrame implements Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         isRunning = true;
+
+        Window.changeState(0);
+
+    }
+
+    public static void changeState(int newState)    {
+
+        Window.currentState = newState;
+
+        switch (Window.currentState)    {
+
+            case 0:
+                Window.currentScene = new MainMenu();
+                break;
+            case 1:
+                Window.currentScene = new GameScene();
+                break;
+            default:
+                System.out.println("Escena desconocida");
+                Window.currentScene = null;
+
+        }
 
     }
 
@@ -27,14 +52,15 @@ public class Window extends JFrame implements Runnable {
 
         getGraphics().drawImage(dbImage,0,0,this);
 
+        currentScene.update(dt);
+
     }
 
     public void draw(Graphics g)  {
 
         Graphics2D g2 = (Graphics2D)g;
 
-        g2.setColor(Color.BLACK);
-        g2.fillRect(0,0,getWidth(),getHeight());
+        currentScene.draw(g);
 
     }
 
