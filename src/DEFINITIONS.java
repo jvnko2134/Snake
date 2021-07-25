@@ -4,4 +4,6 @@ public class DEFINITIONS {
     public static final int SCREEN_HEIGHT = 720;
     public static final String WINDOW_TITLE = "Blake the Snake";
 
+    public static final float TILE_WIDTH = 24;
+
 }
