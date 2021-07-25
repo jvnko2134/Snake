@@ -1,10 +1,25 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 public class MainMenu extends Scene{
 
+    public KL keyListener;
+
+    public MainMenu(KL keyListener) {
+
+        this.keyListener = keyListener;
+
+    }
+
     @Override
     public void update(double dt) {
+
+        if(keyListener.isKeyPressed(KeyEvent.VK_UP))    {
+
+            System.out.println("yea");
+
+        }
 
     }
 
