@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -49,7 +48,7 @@ public class MainMenu extends Scene{
                 mouseListener.getY() >= playRect.y && mouseListener.getY() <= playRect.y + playRect.height)    {
 
                     playCurrentImage = playPressed;                                                             /*Controls image swap when moving mouse over a valid option in main menu*/
-                    if(mouseListener.isPressed)    {Window.changeState(1);}
+                    if(mouseListener.isPressed)    {Window.getWindow().changeState(1);}
 
         } else  {
 
@@ -61,7 +60,7 @@ public class MainMenu extends Scene{
                 mouseListener.getY() >= exitRect.y && mouseListener.getY() <= exitRect.y + exitRect.height)    {
 
             exitCurrentImage = exitPressed;                                                                     //exit button
-            if(mouseListener.isPressed)    {System.exit(1);}
+            if(mouseListener.isPressed)    {Window.getWindow().close();}
 
         } else  {
 
@@ -74,7 +73,7 @@ public class MainMenu extends Scene{
     @Override
     public void draw(Graphics g) {
 
-        g.setColor(Color.white);
+        g.setColor(new Color(72, 56, 125));
 
         g.fillRect(0,0,DEFINITIONS.SCREEN_WIDTH,DEFINITIONS.SCREEN_HEIGHT);
 
